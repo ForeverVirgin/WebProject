@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+
+      xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=cp1251" />
+    <title>Добавить</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div th:replace="../views/header :: header"></div>
+<div class="container">
+    <form action="#" th:action="@{/addNewConfect}" method="post" th:object="${confect}">
+        <div class="form-group">
+            <label for="Name">Название</label>
+            <input class="form-control" th:field="*{name}" id="Name" placeholder="Введите название"/>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="${confect.name}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Описание</label>
+            <input class="form-control" th:field="*{description}" id="Description" placeholder="Введите описание"/>
+            <span th:if="${#fields.hasErrors('description')}"
+                  th:errors="${confect.description}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="Calories">Калорийность</label>
+            <input class="form-control" th:field="*{calories}" id="Calories" placeholder="Введите калорийность"/>
+            <span th:if="${#fields.hasErrors('calories')}"
+                  th:errors="${confect.calories}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="Protein">Содержание белков</label>
+            <input class="form-control" th:field="*{protein}" id="Protein" placeholder="Введите содержание белков"/>
+            <span th:if="${#fields.hasErrors('protein')}"
+                  th:errors="${confect.protein}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="Fat">Содержание жиров</label>
+            <input class="form-control" th:field="*{fat}" id="Fat" placeholder="Введите содержание жиров"/>
+            <span th:if="${#fields.hasErrors('fat')}"
+                  th:errors="${confect.fat}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="carbohydrates">Содержание углеводов</label>
+            <input class="form-control" th:field="*{carbohydrates}" id="carbohydrates" placeholder="Введите содержание углеводов"/>
+            <span th:if="${#fields.hasErrors('carbohydrates')}"
+                  th:errors="${confect.carbohydrates}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="weight">Масса</label>
+            <input class="form-control" th:field="*{weight}" id="weight" placeholder="Введите массу продукта"/>
+            <span th:if="${#fields.hasErrors('weight')}"
+                  th:errors="${confect.weight}"
+                  class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="price">Цена</label>
+            <input class="form-control" th:field="*{price}" id="price" placeholder="Введите цену"/>
+            <span th:if="${#fields.hasErrors('price')}"
+                  th:errors="${confect.price}"
+                  class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+</body>
+</html>
