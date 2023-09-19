@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=cp1251" />
+<!--    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>-->
+<!--    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <title>Главная</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var root = /*[[@{/}]]*/ 'default';
+        console.log(root);
+        /*]]>*/
+    </script>
+    <script th:src="@{/resources/global.js}"></script>
+    <script th:src="@{/resources/submit_click.js}"></script>
+</head>
+<body>
+<div th:replace="../views/header :: header"></div>
+
+<div class="container">
+    <div style="height:70px">
+        <table class="table" >
+            <tr>
+                <td class="col-3">
+                    <p class="text-center">Наименование</p>
+                </td>
+                <td class="col-2">
+                    <p class="text-center">Средняя оценка</p>
+                </td>
+                <td class="col-2">
+                    <p class="text-center">Калорийность</p>
+                </td>
+                <td class="col-1">
+                    <p class="text-center">Цена</p>
+                </td>
+                <td class="col-4">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="addNewConfect"><img th:src="@{/resources/images/plus.png}" width="30" height="30" alt=""></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="overflow: auto; height:400px;">
+
+        <table class="table table-bordered" >
+            <tr th:each="confect : ${confectionery}" th:href="@{'/confect/'+${confect}}">
+                <td class="col-3">
+                    <p class="text-center" th:text="${confect.name}"></p>
+                </td>
+                <td class="col-2">
+                    <p class="text-center" th:if="${confect.k>0}" th:text="${#numbers.formatDecimal(1.0*confect.sum/confect.k,1,1)}"></p>
+                    <p class="text-center" th:if="${confect.k == 0}">0,0</p>
+                </td>
+                <td class="col-2">
+                    <p class="text-center" th:text="${confect.calories}"></p>
+                </td>
+                <td class="col-1">
+                    <p class="text-center" th:text="${confect.price}"></p>
+                </td>
+                <td class="text-center">
+                    <a class="text-center" th:href="@{/confect/{id}(id=${confect.id})}"><button type="button" class="btn btn-light text-center" th:text="Подробнее" ></button></a>
+                </td>
+                <td class="text-center">
+<!--                    <form>-->
+<!--                        <input type="hidden" id="toke" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<!--                    </form>-->
+                        <a class="navbar-brand" th:attr="onclick=|submit_click('${confect.id}')|">
+                            <img th:src="@{/resources/images/cartplus.png}" width="30" height="30" alt="">
+                        </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
